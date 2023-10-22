@@ -9,9 +9,8 @@ model = BayesianNetwork([('D', 'G'), ('I', 'G'), ('G', 'L')])
 cpd_d = TabularCPD(variable='D', variable_card=2, values=[[0.6], [0.4]])
 cpd_i = TabularCPD(variable='I', variable_card=2, values=[[0.7], [0.3]])
 cpd_g = TabularCPD(variable='G', variable_card=3, 
-                   values=[[0.8, 0.6, 0.4, 0.2],
-                           [0.1, 0.3, 0.5, 0.3],
-                           [0.1, 0.1, 0.1, 0.5]],
+                   values=[[0.9, 0.6, 0.05, 0.7],
+                           [0.1, 0.4, 0.95, 0.3]],
                    evidence=['I', 'D'], evidence_card=[2, 2])
 cpd_l = TabularCPD(variable='L', variable_card=2, 
                    values=[[0.1, 0.4, 0.99],
@@ -31,6 +30,6 @@ inference = VariableElimination(model)
 result = inference.query(variables=['L'], evidence={'D': 1})
 print(result)
 
-# Calcular la probabilidad de G dado D=True, I=True
+# Calcular la probabilidad de G dado D=True e I=True
 result = inference.query(variables=['G'], evidence={'D': 1, 'I': 1})
 print(result)
